@@ -204,7 +204,7 @@ public class Login{
             System.out.println("Please make sure you enter correct information and try again later.");
             ageAccount();
         }
-        
+
         if(yearBrith > Integer.valueOf(sy.format(date)) || mountBrith > 12 || dayBrith > 31){
             System.out.println("Erorr! Make sure that the number of the month you entered is not greater than 12 and that the day number you entered is not greater than 31 and that the year number you entered is not greater than current year and try again.");
             ageAccount();
@@ -223,7 +223,7 @@ public class Login{
             if(ageDay < 0 && ageMounth < 0){
                 ageMounth -= 1;
                 ageMounth += 12;
-                ageDay += 30;
+                switchMounthBrith();
                 ageYear -= 1;
             }
             else if(ageDay == 0 && ageMounth < 0){
@@ -231,13 +231,13 @@ public class Login{
                 ageMounth += 12;
             }
             else if(ageDay < 0 && ageMounth > 0){
-                ageDay += 30;
+                switchMounthBrith();
                 ageMounth -= 1;
             }
             else if(ageDay < 0 && ageMounth == 0){
                 ageMounth -= 1;
                 ageMounth += 12;
-                ageDay += 30;
+                switchMounthBrith();
                 ageYear -= 1;
             }
             else if(ageDay > 0 && ageMounth < 0){
@@ -251,8 +251,6 @@ public class Login{
         sleep(1000);
         System.out.println("Your age by year is : " + ageYear + " Year and " + ageMounth + " mounth and " + ageDay + " day");
         sleep(100);
-        System.out.println("Stay for your birthday : " + brithDay() + " Day");
-        sleep(100);
         System.out.println("Your age by mounth is : " + ageByMounth());
         sleep(100);
         System.out.println("Your age by day is : " + ageByDay());
@@ -260,8 +258,37 @@ public class Login{
         System.out.println("Your age by hours is : " + ageByHour());
         sleep(100);
         System.out.println("Your age by minute is : " + ageByMinute());
+        sleep(100);
+        System.out.println("Stay for your birthday : " + brithDay() + " Day");
         mainMenu();
     }//ageAccount method
+
+    /* This method sort day from mounth */
+    public void switchMounthBrith(){ //switchMounthBrith
+        switch (mountBrith) {
+            case 1: 
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                ageDay += 31;
+                break;
+
+            case 4: 
+            case 6:
+            case 9:
+            case 11:
+                ageDay += 30;
+                break;
+            case 2: 
+                ageDay += 28;
+                break;
+            default: 
+                break;
+        }
+    }//switchMounthBrith
 
     /* This methodu calculates the user's age by mounth */
     public int ageByMounth(){ //ageByMounth method
@@ -289,7 +316,7 @@ public class Login{
     public int brithDay(){ //brithDay method
         ageMounth = 11 - ageMounth;
         ageDay = 30 - ageDay;
-        return (ageMounth * 30 + ageDay);
+        return (ageMounth * 30 + ageDay + 5);
     }//brithDay method
 
     /* This method calculates the number of characters entered */
